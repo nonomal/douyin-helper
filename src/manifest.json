@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "version": "1.0.0",
+  "name": "抖音小助手",
+  "description": "抖音网页端增强，集成多种实用小功能",
+  "background": {
+    "service_worker": "background/index.js"
+  },
+  "action": {
+    "default_popup": "popup/index.html"
+  },
+  "icons": {
+    "128": "assets/icons/icon-128.png",
+    "48": "assets/icons/icon-48.png",
+    "32": "assets/icons/icon-32.png",
+    "16": "assets/icons/icon-16.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://douyin.com/*",
+        "https://www.douyin.com/*"
+      ],
+      "js": [
+        "base/index.js",
+        "contentScript/index.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
