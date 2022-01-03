@@ -12,8 +12,6 @@ setInterval(async () => {
   if (swiperRect.width - videoRect.width > 200) {
     return;
   }
-  document.dispatchEvent(new KeyboardEvent('keydown', {
-    key: 'x',
-    code: 'KeyX',
-  }));
+  const trigger = document.querySelector('.xgplayer-video-interaction-wrap > div:nth-child(3) > div');
+  trigger?.click();
 }, 1000);
