@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import * as func from '../../../base/autoShowComment';
+import * as func from '../../../base/enhanceDescription';
 
-export default function useAutoShowCommentFunc() {
+export default function useEnhanceDescriptionFunc() {
   const [isEnabled, setIsEnabled] = useState(false);
 
   useEffect(() => {

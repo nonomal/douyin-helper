@@ -34,4 +34,3 @@ function getJsonResponse(xhr: XMLHttpRequest) {
   }
 }
 
-interceptRequest();

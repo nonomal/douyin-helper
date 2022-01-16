@@ -25,4 +25,12 @@ function initFeedPage(tabId: number) {
     ],
     world: 'MAIN',
   });
+  chrome.scripting.insertCSS({
+    target: {
+      tabId,
+    },
+    files: [
+      'assets/css/style.css',
+    ],
+  })
 }

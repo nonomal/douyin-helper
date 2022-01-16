@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <>
-      <div className="mt-3 mb-3 h-[1px] bg-gray-200" />
+      <div className="mt-4 mb-3 h-[1px] bg-gray-200" />
       <div className="flex justify-between text-gray-500">
         <a
           href="https://github.com/douyin-helper/douyin-helper"

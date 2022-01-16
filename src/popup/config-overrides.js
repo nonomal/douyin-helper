@@ -1,8 +1,7 @@
 const path = require('path');
 const {
   removeModuleScopePlugin, 
-  babelInclude, 
-  addWebpackAlias,
+  babelInclude,
 } = require('customize-cra');
 
 module.exports = {
@@ -16,9 +15,6 @@ module.exports = {
       path.resolve(__dirname, 'src'),
       path.resolve(__dirname, '../base'),
     ])(config);
-    config = addWebpackAlias({
-      'base': path.resolve(__dirname, '../base'),
-    })(config);
     return config;
   },
   devServer: configFunction => {

@@ -1,1 +1,2 @@
 import './autoShowComment';
+import './enhanceDescription';
