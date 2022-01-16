@@ -1,0 +1,27 @@
+{
+  "name": "douyin-helper",
+  "private": true,
+  "scripts": {
+    "dep": "yarn && npm-run-all --parallel dep:*",
+    "dep:popup": "cd src/popup && yarn",
+    "dev": "yarn clean && npm-run-all --parallel dev:*",
+    "dev:final": "rollup -c rollup.config.dev.js -w",
+    "dev:popup": "cd src/popup && yarn dev",
+    "build": "yarn clean && npm-run-all --parallel build:* && rollup -c rollup.config.build.js",
+    "build:popup": "cd src/popup && yarn build",
+    "clean": "npm-run-all --parallel clean:*",
+    "clean:final": "rimraf build",
+    "clean:popup": "cd src/popup && yarn clean"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.176",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.63.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-shell": "^1.0.3",
+    "rollup-plugin-ts": "^2.0.5",
+    "rollup-plugin-watch": "^1.0.1",
+    "typescript": "^4.5.4"
+  }
+}
