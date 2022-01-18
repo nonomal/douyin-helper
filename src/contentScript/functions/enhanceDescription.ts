@@ -25,7 +25,7 @@ setInterval(async () => {
     if (elem.childElementCount) {
       continue;
     }
-    if (elem.textContent.startsWith('#')) {
+    if (/^(#|@)/.test(elem.textContent)) {
       const a = document.createElement('a');
       a.href = `/search/${encodeURIComponent(elem.textContent.trim())}`;
       a.target = '_blank';

@@ -20,7 +20,7 @@
 
 添加时间：`2022-01-16`
 
-信息流视频描述内的话题可直接点击跳到搜索页，不用再手动输入了。
+点击信息流视频描述内的话题（#）和用户（@）可直接跳到搜索页，不用再手动输入了。
 
 ### 保持评论区展开
 
@@ -34,19 +34,20 @@
 
 ## 失效反馈
 
-抖音网站迭代较频繁，其中一些变动可能会导致小助手的功能失效，这时请在[讨论区](https://github.com/douyin-helper/douyin-helper/discussions/categories/%E5%A4%B1%E6%95%88-bug)中反馈，所有反馈都会得到响应。
+抖音网站迭代较频繁，其中一些变动可能会导致小助手的功能失效，这时请在[讨论区](https://github.com/douyin-helper/douyin-helper/discussions/categories/%E5%A4%B1%E6%95%88-bug)中反馈，有反馈就会有响应。
 
 因为插件版本更新需要经过审核，时长在数小时至数天不等。为了缩短失效时间，小助手在 `v1.1.1` 版本中引入了配置下发机制，无需等待漫长的审核即可适配网站新版，这在大多数情况下应该能起到作用。
 
 ## 更新日志
 
-[`v1.1.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.1) - `2022-01-17`
+[`v1.1.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.1) - `2022-01-19`
 
 - 引入配置下发机制，快速应对网站更新
+- 支持点击信息流视频描述内的用户（@）跳转至搜索页
 
 [`v1.1.0`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.0) - `2022-01-16`
 
-- 新增优化视频描述功能
+- 支持点击信息流视频描述内的话题（#）跳转至搜索页
 
 [`v1.0.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.0.1) - `2022-01-04`
 
