@@ -10,10 +10,10 @@ export default function Footer() {
           小助手主页
         </a>
         <a
-          href="https://github.com/douyin-helper/douyin-helper/discussions/categories/%E9%9C%80%E6%B1%82%E5%BB%BA%E8%AE%AE"
+          href="https://github.com/douyin-helper/douyin-helper/discussions"
           target="_blank"
           rel="noopener noreferrer">
-          提建议
+          讨论区
         </a>
       </div>
     </>

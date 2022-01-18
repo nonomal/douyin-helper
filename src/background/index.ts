@@ -1,19 +1,32 @@
-chrome.webNavigation.onCommitted.addListener(({ url, tabId }) => {
-  if (!isDouyinUrl(url)) {
-    return;
-  }
-  if (isFeedUrl(url)) {
-    initFeedPage(tabId);
+import { updateUserLastActiveTime } from '../base/status';
+import { isDouyinHost, isInFeedPage } from '../base/page';
+import config from '../base/config';
+
+const ALARM_SYNC_CONFIG = 'config:sync';
+
+chrome.alarms.create(ALARM_SYNC_CONFIG, {
+  periodInMinutes: 1,
+});
+
+chrome.alarms.onAlarm.addListener(({ name }) => {
+  if (name === ALARM_SYNC_CONFIG) {
+    config.sync();
   }
 });
 
-function isDouyinUrl(url: string) {
-  return /(www)?\.douyin\.com/.test(new URL(url).hostname);
-}
+chrome.webNavigation.onCommitted.addListener(() => {
+  updateUserLastActiveTime(new Date());
+});
 
-function isFeedUrl(url: string) {
-  return /^\/(follow)?$/.test(new URL(url).pathname);
-}
+chrome.webNavigation.onCommitted.addListener(({ url, tabId }) => {
+  const u = new URL(url);
+  if (!isDouyinHost(u.hostname)) {
+    return;
+  }
+  if (isInFeedPage(u.pathname)) {
+    initFeedPage(tabId);
+  }
+});
 
 function initFeedPage(tabId: number) {
   chrome.scripting.executeScript({

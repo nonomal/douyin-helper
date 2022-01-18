@@ -1,0 +1,16 @@
+{
+  "selectors": {
+    "feed:slide": ".swiper-slide-active",
+    "feed:slide:video": "video",
+    "feed:slide:showCommentBtn": ".xgplayer-video-interaction-wrap > div:nth-child(3) > div",
+    "feed:slide:desc": ".video-info-detail > .title",
+    "feed:slide:desc:hash": "span",
+    "feed:slide:playBtn:playing": ".xgplayer-play[data-state=\"play\"]"
+  },
+  "paths": {
+    "feeds": [
+      "/",
+      "/follow"
+    ]
+  }
+}

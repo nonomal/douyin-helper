@@ -8,7 +8,7 @@
   </p>
 </div>
 
-抖音 web 端浏览器插件，集成多种实用小功能。这是第三方开源项目，功能会逐步增加，即使暂未满足你的需求，也欢迎安装使用，以随版本更新，第一时间获得新功能以及更好的观看体验。
+抖音 web 端（[douyin.com](https://douyin.com)）浏览器插件，集成多种实用小功能。这是第三方开源项目，功能会逐步增加，即使暂未满足你的需求，也欢迎安装使用，以随版本更新，第一时间获得新功能以及更好的观看体验。
 
 ## 安装
 
@@ -32,8 +32,26 @@
 
 前往[讨论区](https://github.com/douyin-helper/douyin-helper/discussions/categories/%E9%9C%80%E6%B1%82%E5%BB%BA%E8%AE%AE)说出你的需求。
 
+## 失效反馈
+
+抖音网站迭代较频繁，其中一些变动可能会导致小助手的功能失效，这时请在[讨论区](https://github.com/douyin-helper/douyin-helper/discussions/categories/%E5%A4%B1%E6%95%88-bug)中反馈，所有反馈都会得到响应。
+
+因为插件版本更新需要经过审核，时长在数小时至数天不等。为了缩短失效时间，小助手在 `v1.1.1` 版本中引入了配置下发机制，无需等待漫长的审核即可适配网站新版，这在大多数情况下应该能起到作用。
+
 ## 更新日志
 
-- v1.1.0 - 2022-01-16: 新增优化视频描述功能
-- v1.0.1 - 2022-01-04: 兼容旧版抖音
-- v1.0.0 - 2022-01-02: 初始版本
+[`v1.1.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.1) - `2022-01-17`
+
+- 引入配置下发机制，快速应对网站更新
+
+[`v1.1.0`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.0) - `2022-01-16`
+
+- 新增优化视频描述功能
+
+[`v1.0.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.0.1) - `2022-01-04`
+
+- 兼容旧版抖音
+
+[`v1.0.0`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.0.0) - `2022-01-02`
+
+- 初始版本

@@ -1,6 +1,6 @@
-import storage from './storage';
+import storage from '../storage';
 
-const KEY_ENABLED = 'func:autoShowComment:enabled';
+const KEY_ENABLED = 'func:enhanceDescription:enabled';
 
 export async function isEnabled() {
   return (await storage.get(KEY_ENABLED)) ?? true;

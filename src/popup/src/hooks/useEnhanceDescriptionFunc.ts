@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import * as func from '../../../base/enhanceDescription';
+import * as func from '../../../base/functions/enhanceDescription';
 
 export default function useEnhanceDescriptionFunc() {
   const [isEnabled, setIsEnabled] = useState(false);

@@ -1,4 +1,5 @@
 const storage = {
+
   get: (key: string) => {
     return new Promise<any>((resolve => {
       chrome.storage.local.get(key, res => {
@@ -6,6 +7,7 @@ const storage = {
       });
     }));
   },
+
   set: (key: string, val: any) => {
     return new Promise<void>((resolve => {
       chrome.storage.local.set({
@@ -13,6 +15,7 @@ const storage = {
       }, resolve);
     }));
   },
+
 }
 
 export default storage;

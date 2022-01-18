@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import * as func from '../../../base/autoShowComment';
+import * as func from '../../../base/functions/autoShowComment';
 
 export default function useAutoShowCommentFunc() {
   const [isEnabled, setIsEnabled] = useState(false);

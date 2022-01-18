@@ -1,2 +1,2 @@
-import './autoShowComment';
-import './enhanceDescription';
+import './functions/autoShowComment';
+import './functions/enhanceDescription';
