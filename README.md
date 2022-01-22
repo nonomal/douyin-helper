@@ -4,7 +4,7 @@
   <p align="center">
     <a href="https://chrome.google.com/webstore/detail/khgcifnapfcaleokihendkolpcfgkepk"><img alt="Web Store" src="https://img.shields.io/chrome-web-store/v/khgcifnapfcaleokihendkolpcfgkepk?color=blue&label=Chrome%20Web%20Store&style=flat-square"></a>
     <a href="https://chrome.google.com/webstore/detail/khgcifnapfcaleokihendkolpcfgkepk"><img alt="Web Store" src="https://img.shields.io/chrome-web-store/users/khgcifnapfcaleokihendkolpcfgkepk?color=important&label=Users&style=flat-square"></a>
-    <a href="https://github.com/douyin-helper/douyin-helper/graphs/contributors"><img alt="Make with Love" src="https://img.shields.io/static/v1?label=Make%20with&message=Love&color=critical&style=flat-square"></a>
+    <a href="https://github.com/douyin-helper/douyin-helper/graphs/contributors"><img alt="Make with Hobby" src="https://img.shields.io/static/v1?label=Make%20with&message=Hobby&color=critical&style=flat-square"></a>
   </p>
 </div>
 
