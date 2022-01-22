@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "name": "抖音小助手",
   "description": "抖音网页端增强，集成多种实用小功能",
   "background": {

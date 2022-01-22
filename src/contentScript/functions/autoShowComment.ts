@@ -2,8 +2,13 @@ import { isEnabled } from '../../base/functions/autoShowComment';
 import { isInFeedPage } from '../../base/page';
 import config from '../../base/config';
 
+let isEnabledNow = false;
+let switchKeyPressCount = 0;
+let switchKeyLastDownAt = 0;
+
 setInterval(async () => {
-  if (!isInFeedPage(location.pathname) || !await isEnabled()) {
+  isEnabledNow = isInFeedPage(location.pathname) && await isEnabled();
+  if (!isEnabledNow) {
     return;
   }
   const slide = document.querySelector(
@@ -27,3 +32,59 @@ setInterval(async () => {
     config.get<string>(['selectors', 'feed:slide:showCommentBtn'])
   )?.click();
 }, 1000);
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.documentElement.addEventListener('keydown', event => {
+    if (!isEnabledNow) {
+      return;
+    }
+
+    const { code, shiftKey, target } = event;
+    if (
+      (target as HTMLElement).contentEditable === 'true' ||
+      (target as HTMLElement).nodeName === 'INPUT'
+    ) {
+      return;
+    }
+    if (shiftKey || (code !== 'ArrowUp' && code !== 'ArrowDown')) {
+      return;
+    }
+
+    if (!switchKeyPressCount) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    switchKeyPressCount++;
+    if (Date.now() - switchKeyLastDownAt < 1000) {
+      event.stopPropagation();
+      event.preventDefault();
+    } else {
+      switchKeyLastDownAt = Date.now();
+    }
+  }, true);
+
+  document.documentElement.addEventListener('keyup', ({ code }) => {
+    if (!isEnabledNow) {
+      return;
+    }
+
+    const count = switchKeyPressCount;
+    switchKeyPressCount = 0;
+    switchKeyLastDownAt = 0;
+    if (count !== 1) {
+      return;
+    }
+
+    const slide = document.querySelector(
+      config.get<string>(['selectors', 'feed:slide'])
+    );
+    if (!slide) {
+      return;
+    }
+    const selector = config.get<string>([
+      'selectors',
+      `feed:slide:switch:${code === 'ArrowUp' ? 'prev' : 'next'}`,
+    ]);
+    slide.querySelector<HTMLElement>(selector)?.click();
+  }, true);
+});

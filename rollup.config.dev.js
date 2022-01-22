@@ -69,7 +69,9 @@ function getTsPlugins() {
       },
     }),
     nodeResolve(),
-    json(),
+    json({
+      namedExports: false,
+    }),
   ];
 }
 
