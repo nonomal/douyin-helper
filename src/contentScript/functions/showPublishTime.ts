@@ -5,7 +5,7 @@ import { isInFeedPage } from '../../base/page';
 import { EVENT_XHR_LOAD, XHRLoadEventDetail } from '../../base/request';
 import config from '../../base/config';
 
-interface Item {
+interface Aweme {
   video: {
     play_addr: {
       url_list: string[];
@@ -20,20 +20,23 @@ interface Item {
 }
 
 let isEnabledNow = false;
-let items: Item[] = [];
+let items: Aweme[] = [];
 let timestamps: Record<string, number> = {};
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.addEventListener(EVENT_XHR_LOAD, (event: any) => {
     const { url, response } = event.detail as XHRLoadEventDetail;
-    const path = config.get<string>(['apis', 'feed', 'path']);
-    if (new URL(url).pathname !== path) {
-      return;
+    const path = new URL(url).pathname;
+
+    let newItems: Aweme[] = [];
+    if (path === config.get<string>(['apis', 'feed', 'path'])) {
+      newItems = response.aweme_list || [];
     }
-    if (!Array.isArray(response.aweme_list)) {
-      return;
+    if (path === config.get<string>(['apis', 'followFeed', 'path'])) {
+      newItems = response.data?.map(v => v.aweme) || [];
     }
-    items = [...items, ...response.aweme_list].slice(-100);
+    items = [...items, ...newItems].slice(-100);
+
     const newTimestamps: Record<string, number> = {};
     for (const item of items) {
       for (const url of (item.video?.play_addr?.url_list || [])) {

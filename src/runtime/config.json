@@ -22,6 +22,9 @@
   "apis": {
     "feed": {
       "path": "/aweme/v1/web/tab/feed/"
+    },
+    "followFeed": {
+      "path": "/aweme/v1/web/follow/feed/"
     }
   }
 }

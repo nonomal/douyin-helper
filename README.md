@@ -48,9 +48,13 @@
 
 ## 更新日志
 
+[`v1.1.3`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.3) - `2022-01-22`
+
+- 支持显示关注信息流视频发布时间
+
 [`v1.1.2`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.2) - `2022-01-22`
 
-- 支持显示信息流视频发布时间
+- 支持显示推荐信息流视频发布时间
 - 启用「保持评论区展开」时，上下快捷键维持切换视频的功能
 
 [`v1.1.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.1) - `2022-01-19`
