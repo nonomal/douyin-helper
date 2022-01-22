@@ -6,33 +6,6 @@ let isEnabledNow = false;
 let switchKeyPressCount = 0;
 let switchKeyLastDownAt = 0;
 
-setInterval(async () => {
-  isEnabledNow = isInFeedPage(location.pathname) && await isEnabled();
-  if (!isEnabledNow) {
-    return;
-  }
-  const slide = document.querySelector(
-    config.get<string>(['selectors', 'feed:slide'])
-  );
-  if (!slide) {
-    return;
-  }
-  const video = slide.querySelector(
-    config.get<string>(['selectors', 'feed:slide:video'])
-  );
-  if (!video) {
-    return;
-  }
-  const slideRect = slide.getBoundingClientRect();
-  const videoRect = video.getBoundingClientRect();
-  if (slideRect.width - videoRect.width > 200) {
-    return;
-  }
-  slide.querySelector<HTMLElement>(
-    config.get<string>(['selectors', 'feed:slide:showCommentBtn'])
-  )?.click();
-}, 1000);
-
 document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.addEventListener('keydown', event => {
     if (!isEnabledNow) {
@@ -88,3 +61,30 @@ document.addEventListener('DOMContentLoaded', () => {
     slide.querySelector<HTMLElement>(selector)?.click();
   }, true);
 });
+
+export async function execute() {
+  isEnabledNow = isInFeedPage(location.pathname) && await isEnabled();
+  if (!isEnabledNow) {
+    return;
+  }
+  const slide = document.querySelector(
+    config.get<string>(['selectors', 'feed:slide'])
+  );
+  if (!slide) {
+    return;
+  }
+  const video = slide.querySelector(
+    config.get<string>(['selectors', 'feed:slide:videoWrapper'])
+  );
+  if (!video) {
+    return;
+  }
+  const slideRect = slide.getBoundingClientRect();
+  const videoRect = video.getBoundingClientRect();
+  if (slideRect.width - videoRect.width > 200) {
+    return;
+  }
+  slide.querySelector<HTMLElement>(
+    config.get<string>(['selectors', 'feed:slide:showCommentBtn'])
+  )?.click();
+}

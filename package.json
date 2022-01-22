@@ -29,6 +29,7 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
+    "dayjs": "^1.10.7",
     "semver": "^7.3.5"
   }
 }

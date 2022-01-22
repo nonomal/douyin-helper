@@ -1,18 +1,27 @@
 {
   "selectors": {
+    "feed:slides": ".swiper-slide",
     "feed:slide": ".swiper-slide-active",
     "feed:slide:video": "video",
+    "feed:slide:videoWrapper": ".videoWrap",
     "feed:slide:showCommentBtn": ".xgplayer-video-interaction-wrap > div:nth-child(3) > div",
     "feed:slide:desc": ".video-info-detail > .title",
     "feed:slide:desc:hash": "span",
     "feed:slide:playBtn:playing": ".xgplayer-play[data-state=\"play\"]",
     "feed:slide:switch:prev": ".xgplayer-playswitch-prev",
-    "feed:slide:switch:next": ".xgplayer-playswitch-next"
+    "feed:slide:switch:next": ".xgplayer-playswitch-next",
+    "feed:slide:account": ".video-info-detail .account",
+    "feed:slide:accountBadge": ".video-info-detail .account-badage"
   },
   "paths": {
     "feeds": [
       "/",
       "/follow"
     ]
+  },
+  "apis": {
+    "feed": {
+      "path": "/aweme/v1/web/tab/feed/"
+    }
   }
 }

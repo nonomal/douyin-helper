@@ -1,3 +1,3 @@
-import { interceptRequest } from './request';
+import { interceptRequest } from '../base/request';
 
 interceptRequest();

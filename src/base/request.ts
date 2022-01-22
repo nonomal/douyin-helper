@@ -29,7 +29,7 @@ function getJsonResponse(xhr: XMLHttpRequest) {
   try {
     return JSON.parse(xhr.responseText);
   } catch (err) {
-    console.error(err);
+    console.warn(err);
     return null;
   }
 }

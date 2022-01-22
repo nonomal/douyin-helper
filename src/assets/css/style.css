@@ -1,3 +1,8 @@
 .douyinHelper_link:hover {
   font-weight: bold;
 }
+
+.douyinHelper_publishTime {
+  margin-left: 0.8em !important;
+  opacity: 0.5;
+}

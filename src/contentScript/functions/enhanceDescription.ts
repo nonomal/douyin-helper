@@ -2,7 +2,7 @@ import { isEnabled } from '../../base/functions/enhanceDescription';
 import { isInFeedPage } from '../../base/page';
 import config from '../../base/config';
 
-setInterval(async () => {
+export async function execute() {
   if (!isInFeedPage(location.pathname) || !await isEnabled()) {
     return;
   }
@@ -40,4 +40,4 @@ setInterval(async () => {
       elem.appendChild(a);
     }
   }
-}, 1000);
+}
