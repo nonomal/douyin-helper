@@ -6,3 +6,7 @@
   margin-left: 0.8em !important;
   opacity: 0.5;
 }
+
+.douyinHelper_noCursorRoot body div * {
+  cursor: none !important;
+}

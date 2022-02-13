@@ -38,7 +38,7 @@
 
 ### 自动隐藏光标
 
-添加时间：`2022-01-23`
+添加时间：`2022-02-13`
 
 光标在视频上方悬停时自动隐藏，减少遮挡。
 
@@ -54,9 +54,10 @@
 
 ## 更新日志
 
-[`v1.1.3`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.3) - `TBA`
+[`v1.1.3`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.3) - `2022-02-13`
 
 - 支持显示关注信息流视频发布时间
+- 支持自动隐藏光标
 
 [`v1.1.2`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.2) - `2022-01-22`
 

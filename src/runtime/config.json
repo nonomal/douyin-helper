@@ -11,7 +11,8 @@
     "feed:slide:switch:prev": ".xgplayer-playswitch-prev",
     "feed:slide:switch:next": ".xgplayer-playswitch-next",
     "feed:slide:account": ".video-info-detail .account",
-    "feed:slide:accountBadge": ".video-info-detail .account-badage"
+    "feed:slide:accountBadge": ".video-info-detail .account-badage",
+    "video": "video"
   },
   "paths": {
     "feeds": [
