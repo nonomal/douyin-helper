@@ -1,4 +1,5 @@
 import config from '../base/config';
+import { Theme, updateTheme } from '../base/theme';
 
 import * as autoShowComment from './functions/autoShowComment';
 import * as enhanceDescription from './functions/enhanceDescription';
@@ -8,6 +9,7 @@ import * as autoHideCursor from './functions/autoHideCursor';
 if (isInFeedPage()) {
   inject();
   start();
+  initThemeSync();
 }
 
 function isInFeedPage() {
@@ -35,4 +37,15 @@ function start() {
     enhanceDescription.execute();
     showPublishTime.execute();
   }, 1000);
+}
+
+function initThemeSync() {
+  document.addEventListener('DOMContentLoaded', () => {
+    setInterval(() => {
+      const isDark = Boolean(document.querySelector(
+        config.get<string>(['selectors', 'darkTheme'])
+      ));
+      updateTheme(isDark ? Theme.Dark : Theme.Light);
+    }, 3000);
+  });
 }
