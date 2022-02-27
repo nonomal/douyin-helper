@@ -91,10 +91,10 @@ function link() {
         fs.mkdirSync(dstDir);
       }
 
-      const popupSrcDir = path.resolve(srcDir, 'popup/build');
-      const popupDstDir = path.resolve(dstDir, 'popup');
-      if (!fs.existsSync(popupDstDir)) {
-        fs.symlinkSync(popupSrcDir, popupDstDir, 'dir');
+      const optionsSrcDir = path.resolve(srcDir, 'options/build');
+      const optionsDstDir = path.resolve(dstDir, 'options');
+      if (!fs.existsSync(optionsDstDir)) {
+        fs.symlinkSync(optionsSrcDir, optionsDstDir, 'dir');
       }
 
       const manifestSrc = path.resolve(srcDir, 'manifest.json');
@@ -103,10 +103,10 @@ function link() {
         fs.symlinkSync(manifestSrc, manifestDst, 'file');
       }
 
-      const assetSrcDir = path.resolve(srcDir, 'assets');
-      const assetDstDir = path.resolve(dstDir, 'assets');
-      if (!fs.existsSync(assetDstDir)) {
-        fs.symlinkSync(assetSrcDir, assetDstDir, 'dir');
+      const assetsSrcDir = path.resolve(srcDir, 'assets');
+      const assetsDstDir = path.resolve(dstDir, 'assets');
+      if (!fs.existsSync(assetsDstDir)) {
+        fs.symlinkSync(assetsSrcDir, assetsDstDir, 'dir');
       }
 
       done = true;

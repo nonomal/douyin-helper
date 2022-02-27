@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 
 import { isEnabled } from '../../base/functions/showPublishTime';
-import { isInFeedPage } from '../../base/page';
 import { EVENT_XHR_LOAD, XHRLoadEventDetail } from '../../base/request';
 import config from '../../base/config';
 
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export async function execute() {
-  isEnabledNow = isInFeedPage(location.pathname) && await isEnabled();
+  isEnabledNow = await isEnabled();
   if (!isEnabledNow) {
     return;
   }

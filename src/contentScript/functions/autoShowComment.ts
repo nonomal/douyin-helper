@@ -1,5 +1,4 @@
 import { isEnabled } from '../../base/functions/autoShowComment';
-import { isInFeedPage } from '../../base/page';
 import config from '../../base/config';
 
 let isEnabledNow = false;
@@ -63,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export async function execute() {
-  isEnabledNow = isInFeedPage(location.pathname) && await isEnabled();
+  isEnabledNow = await isEnabled();
   if (!isEnabledNow) {
     return;
   }

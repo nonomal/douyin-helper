@@ -3,15 +3,15 @@
   "private": true,
   "scripts": {
     "dep": "yarn && npm-run-all --parallel dep:*",
-    "dep:popup": "cd src/popup && yarn",
+    "dep:options": "cd src/options && yarn",
     "dev": "yarn clean && npm-run-all --parallel dev:*",
     "dev:final": "rollup -c rollup.config.dev.js -w",
-    "dev:popup": "cd src/popup && yarn dev",
+    "dev:options": "cd src/options && yarn dev",
     "build": "yarn clean && npm-run-all --parallel build:* && rollup -c rollup.config.build.js",
-    "build:popup": "cd src/popup && yarn build",
+    "build:options": "cd src/options && yarn build",
     "clean": "npm-run-all --parallel clean:*",
     "clean:final": "rimraf build",
-    "clean:popup": "cd src/popup && yarn clean"
+    "clean:options": "cd src/options && yarn clean"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",

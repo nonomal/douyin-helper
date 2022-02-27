@@ -3,6 +3,13 @@ import config from '../../base/config';
 
 const NO_CURSOR_CLASS = 'douyinHelper_noCursorRoot';
 
+export function start() {
+  document.addEventListener('mousemove', event => {
+    document.documentElement.classList.remove(NO_CURSOR_CLASS);
+    autoHideCursor(event);
+  }, true);
+}
+
 const autoHideCursor = debounce(async ({ clientX, clientY }: MouseEvent) => {
   if (!(await isEnabled())) {
     return;
@@ -23,11 +30,6 @@ const autoHideCursor = debounce(async ({ clientX, clientY }: MouseEvent) => {
     }
   }
 }, 2000);
-
-document.addEventListener('mousemove', event => {
-  document.documentElement.classList.remove(NO_CURSOR_CLASS);
-  autoHideCursor(event);
-}, true);
 
 function debounce(fn: Function, timeout: number) {
   let timer;

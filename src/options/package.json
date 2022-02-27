@@ -1,5 +1,5 @@
 {
-  "name": "popup",
+  "name": "options",
   "private": true,
   "dependencies": {
     "@douyinfe/semi-ui": "^2.3.0",

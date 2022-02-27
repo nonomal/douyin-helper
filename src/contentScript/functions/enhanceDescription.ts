@@ -1,9 +1,8 @@
 import { isEnabled } from '../../base/functions/enhanceDescription';
-import { isInFeedPage } from '../../base/page';
 import config from '../../base/config';
 
 export async function execute() {
-  if (!isInFeedPage(location.pathname) || !await isEnabled()) {
+  if (!await isEnabled()) {
     return;
   }
   const slide = document.querySelector(
@@ -25,7 +24,7 @@ export async function execute() {
     if (elem.childElementCount) {
       continue;
     }
-    if (/^(#|@)/.test(elem.textContent)) {
+    if (/^#/.test(elem.textContent)) {
       const a = document.createElement('a');
       a.href = `/search/${encodeURIComponent(elem.textContent.trim())}`;
       a.target = '_blank';

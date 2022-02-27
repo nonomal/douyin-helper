@@ -1,5 +1,4 @@
 import { updateUserLastActiveTime } from '../base/status';
-import { isDouyinHost, isInFeedPage } from '../base/page';
 import config from '../base/config';
 
 const ALARM_SYNC_CONFIG = 'config:sync';
@@ -14,36 +13,21 @@ chrome.alarms.onAlarm.addListener(({ name }) => {
   }
 });
 
-chrome.webNavigation.onCommitted.addListener(() => {
+chrome.tabs.onCreated.addListener(() => {
   updateUserLastActiveTime(new Date());
 });
 
-chrome.webNavigation.onCommitted.addListener(({ url, tabId }) => {
-  const u = new URL(url);
-  if (!isDouyinHost(u.hostname)) {
-    return;
-  }
-  if (isInFeedPage(u.pathname)) {
-    initFeedPage(tabId);
+chrome.action.onClicked.addListener(async () => {
+  const url = chrome.runtime.getURL('options/index.html');
+  const tabs = await chrome.tabs.query({
+    windowId: chrome.windows.WINDOW_ID_CURRENT,
+    url,
+  });
+  if (tabs.length) {
+    chrome.tabs.update(tabs[0].id, {
+      active: true,
+    });
+  } else {
+    chrome.tabs.create({ url });
   }
 });
-
-function initFeedPage(tabId: number) {
-  chrome.scripting.executeScript({
-    target: {
-      tabId,
-    },
-    files: [
-      'injection/index.js',
-    ],
-    world: 'MAIN',
-  });
-  chrome.scripting.insertCSS({
-    target: {
-      tabId,
-    },
-    files: [
-      'assets/css/style.css',
-    ],
-  })
-}
