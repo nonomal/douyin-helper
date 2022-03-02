@@ -18,45 +18,44 @@ interface Aweme {
   create_time: number;
 }
 
-let isEnabledNow = false;
 let items: Aweme[] = [];
 let timestamps: Record<string, number> = {};
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.addEventListener(EVENT_XHR_LOAD, (event: any) => {
-    const { url, response } = event.detail as XHRLoadEventDetail;
-    const path = new URL(url).pathname;
-
-    let newItems: Aweme[] = [];
-    if (path === config.get<string>(['apis', 'feed', 'path'])) {
-      newItems = response.aweme_list || [];
-    }
-    if (path === config.get<string>(['apis', 'followFeed', 'path'])) {
-      newItems = response.data?.map(v => v.aweme) || [];
-    }
-    items = [...items, ...newItems].slice(-100);
-
-    const newTimestamps: Record<string, number> = {};
-    for (const item of items) {
-      for (const url of (item.video?.play_addr?.url_list || [])) {
-        newTimestamps[removeProtocol(url)] = item.create_time;
+export function start() {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener(EVENT_XHR_LOAD, (event: any) => {
+      const { url, response } = event.detail as XHRLoadEventDetail;
+      const path = new URL(url).pathname;
+  
+      let newItems: Aweme[] = [];
+      if (path === config.get<string>(['apis', 'feed', 'path'])) {
+        newItems = response.aweme_list || [];
       }
-      for (const rate of (item.video?.bit_rate || [])) {
-        for (const url of (rate.play_addr?.url_list || [])) {
+      if (path === config.get<string>(['apis', 'followFeed', 'path'])) {
+        newItems = response.data?.map(v => v.aweme) || [];
+      }
+      items = [...items, ...newItems].slice(-100);
+
+      const newTimestamps: Record<string, number> = {};
+      for (const item of items) {
+        for (const url of (item.video?.play_addr?.url_list || [])) {
           newTimestamps[removeProtocol(url)] = item.create_time;
         }
+        for (const rate of (item.video?.bit_rate || [])) {
+          for (const url of (rate.play_addr?.url_list || [])) {
+            newTimestamps[removeProtocol(url)] = item.create_time;
+          }
+        }
       }
-    }
-    timestamps = newTimestamps;
+      timestamps = newTimestamps;
+    });
   });
-});
+}
 
 export async function execute() {
-  isEnabledNow = await isEnabled();
-  if (!isEnabledNow) {
+  if (!(await isEnabled())) {
     return;
   }
-
   const slides = Array.from(document.querySelectorAll(
     config.get<string>(['selectors', 'feed:slides'])
   ));

@@ -65,7 +65,7 @@ async function canSync() {
   return true;
 }
 
-function getValue<T=any>(paths: string[]): T {
+function getValue<T=any>(paths: string[]): T | undefined {
   let curr = configData;
   for (const key of paths) {
     if (!curr) {

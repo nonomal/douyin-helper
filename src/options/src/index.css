@@ -4,7 +4,7 @@
 
 body {
   color: var(--semi-color-text-1);
-  background-color: var(--semi-color-bg-0);
+  background-color: rgba(var(--semi-grey-0), 1);
 }
 
 ::-webkit-scrollbar {

@@ -38,7 +38,13 @@
 
 添加时间：`2022-02-13`
 
-光标在视频上方悬停时自动隐藏，减少遮挡。
+光标在视频上方悬停时自动隐藏，以减少对视频画面的遮挡。
+
+### 自定义快捷键
+
+添加时间：`2022-03-02`
+
+覆盖官方原有的快捷键配置。
 
 ### 更多
 
@@ -52,9 +58,14 @@
 
 ## 更新日志
 
-[`v2.0.0`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.0.0) - `2022-02-27`
+[`v2.0.0`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.0.0) - `2022-03-02`
 
-- 全新版本，启用选项页，减少权限要求
+- 启用全新配置页
+- 减少插件权限要求
+- 支持自定义快捷键（[#8](https://github.com/douyin-helper/douyin-helper/discussions/8)）
+- 修正视频发布时间偶尔不显示的问题
+- 移除信息流视频描述内用户（@）点击跳转（官方已支持）
+- 移除展开评论区时维持上下快捷键切换视频的功能（官方已支持）
 
 [`v1.1.3`](https://github.com/douyin-helper/douyin-helper/releases/tag/v1.1.3) - `2022-02-13`
 

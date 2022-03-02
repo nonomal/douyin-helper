@@ -19,6 +19,11 @@
     "feeds": [
       "/",
       "/follow"
+    ],
+    "remapShortcutsIn": [
+      "/",
+      "/follow",
+      "/video/*"
     ]
   },
   "apis": {
@@ -27,6 +32,64 @@
     },
     "followFeed": {
       "path": "/aweme/v1/web/follow/feed/"
+    }
+  },
+  "shortcuts": {
+    "previous": {
+      "title": "上一个",
+      "code": "ArrowUp"
+    },
+    "next": {
+      "title": "下一个",
+      "code": "ArrowDown"
+    },
+    "pause": {
+      "title": "暂停",
+      "code": "Space"
+    },
+    "fastForward": {
+      "title": "快进",
+      "code": "ArrowRight"
+    },
+    "fastRewind": {
+      "title": "快退",
+      "code": "ArrowLeft"
+    },
+    "increaseVolume": {
+      "title": "增大音量",
+      "code": "Equal"
+    },
+    "decreaseVolume": {
+      "title": "减小音量",
+      "code": "Minus"
+    },
+    "comment": {
+      "title": "评论",
+      "code": "KeyX"
+    },
+    "like": {
+      "title": "赞",
+      "code": "KeyZ"
+    },
+    "collect": {
+      "title": "收藏",
+      "code": "KeyC"
+    },
+    "share": {
+      "title": "分享",
+      "code": "KeyV"
+    },
+    "dislike": {
+      "title": "不感兴趣",
+      "code": "KeyB"
+    },
+    "follow": {
+      "title": "关注作者",
+      "code": "KeyA"
+    },
+    "openAuthorPage": {
+      "title": "进入作者主页",
+      "code": "KeyF"
     }
   }
 }

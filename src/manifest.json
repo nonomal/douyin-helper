@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "name": "抖音小助手",
   "description": "抖音网页端增强，集成多种实用小功能",
+  "homepage_url": "https://douyinhelper.com",
   "background": {
     "service_worker": "background/index.js"
   },

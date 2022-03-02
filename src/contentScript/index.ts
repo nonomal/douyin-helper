@@ -5,15 +5,36 @@ import * as autoShowComment from './functions/autoShowComment';
 import * as enhanceDescription from './functions/enhanceDescription';
 import * as showPublishTime from './functions/showPublishTime';
 import * as autoHideCursor from './functions/autoHideCursor';
+import * as remapShortcut from './functions/remapShortcut';
 
-if (isInFeedPage()) {
-  inject();
-  start();
-  initThemeSync();
+inject();
+initThemeSync();
+
+if (isInPages('feeds')) {
+  autoHideCursor.start();
+  showPublishTime.start();
+  setInterval(() => {
+    autoShowComment.execute();
+    enhanceDescription.execute();
+    showPublishTime.execute();
+  }, 1000);
 }
 
-function isInFeedPage() {
-  return config.get<string[]>(['paths', 'feeds'])?.includes(location.pathname);
+if (isInPages('remapShortcutsIn')) {
+  remapShortcut.start();
+  setInterval(() => {
+    remapShortcut.execute();
+  }, 1000);
+}
+
+function isInPages(name: string) {
+  const patterns = config.get<string[]>(['paths', name]) || [];
+  for (const pattern of patterns) {
+    const reg = new RegExp('^' + pattern.replace(/\*/g, '.*') + '$')
+    if (reg.test(location.pathname)) {
+      return true;
+    }
+  }
 }
 
 function inject() {
@@ -28,15 +49,6 @@ function inject() {
     document.head.appendChild(style);
     script.remove();
   });
-}
-
-function start() {
-  autoHideCursor.start();
-  setInterval(() => {
-    autoShowComment.execute();
-    enhanceDescription.execute();
-    showPublishTime.execute();
-  }, 1000);
 }
 
 function initThemeSync() {

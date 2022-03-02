@@ -1,6 +1,8 @@
 import { isEnabled } from '../../base/functions/enhanceDescription';
 import config from '../../base/config';
 
+const LINK_CLASS_NAME = 'douyinHelper_link';
+
 export async function execute() {
   if (!await isEnabled()) {
     return;
@@ -29,7 +31,7 @@ export async function execute() {
       a.href = `/search/${encodeURIComponent(elem.textContent.trim())}`;
       a.target = '_blank';
       a.textContent = elem.textContent;
-      a.className = 'douyinHelper_link';
+      a.className = LINK_CLASS_NAME;
       a.onclick = () => {
         slide.querySelector<HTMLElement>(
           config.get<string>(['selectors', 'feed:slide:playBtn:playing'])
@@ -37,6 +39,11 @@ export async function execute() {
       }
       elem.textContent = '';
       elem.appendChild(a);
+      continue;
+    }
+    if (/^@/.test(elem.textContent)) {
+      elem.classList.add(LINK_CLASS_NAME);
+      continue;
     }
   }
 }

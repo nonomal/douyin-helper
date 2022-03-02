@@ -21,13 +21,22 @@ chrome.action.onClicked.addListener(async () => {
   const url = chrome.runtime.getURL('options/index.html');
   const tabs = await chrome.tabs.query({
     windowId: chrome.windows.WINDOW_ID_CURRENT,
-    url,
+    url: url + '*',
   });
   if (tabs.length) {
     chrome.tabs.update(tabs[0].id, {
       active: true,
     });
   } else {
+    chrome.tabs.create({ url });
+  }
+});
+
+chrome.runtime.onInstalled.addListener(({ previousVersion, reason }) => {
+  const prev = previousVersion;
+  const curr = chrome.runtime.getManifest().version;
+  if (!prev || +curr.split('.')[0] > +prev.split('.')[0]) {
+    const url = chrome.runtime.getURL(`options/index.html?reason=${reason}`);
     chrome.tabs.create({ url });
   }
 });
