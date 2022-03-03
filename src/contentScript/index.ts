@@ -7,25 +7,29 @@ import * as showPublishTime from './functions/showPublishTime';
 import * as autoHideCursor from './functions/autoHideCursor';
 import * as remapShortcut from './functions/remapShortcut';
 
-inject();
-initThemeSync();
+(async () => {
+  inject();
 
-if (isInPages('feeds')) {
-  autoHideCursor.start();
-  showPublishTime.start();
-  setInterval(() => {
-    autoShowComment.execute();
-    enhanceDescription.execute();
-    showPublishTime.execute();
-  }, 1000);
-}
-
-if (isInPages('remapShortcutsIn')) {
-  remapShortcut.start();
-  setInterval(() => {
-    remapShortcut.execute();
-  }, 1000);
-}
+  await config.prepare();
+  initThemeSync();
+  
+  if (isInPages('feeds')) {
+    autoHideCursor.start();
+    showPublishTime.start();
+    setInterval(() => {
+      autoShowComment.execute();
+      enhanceDescription.execute();
+      showPublishTime.execute();
+    }, 1000);
+  }
+  
+  if (isInPages('remapShortcutsIn')) {
+    remapShortcut.start();
+    setInterval(() => {
+      remapShortcut.execute();
+    }, 1000);
+  }
+})();
 
 function isInPages(name: string) {
   const patterns = config.get<string[]>(['paths', name]) || [];

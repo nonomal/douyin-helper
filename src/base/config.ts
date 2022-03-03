@@ -12,19 +12,38 @@ const MIN_SYNC_INTERVAL = 1000 * 3600;
 const KEY_DATA = 'config:data';
 const KEY_SYNC_TIME = 'config:syncTime';
 
-let configData: any = defaultData;
-
 const config = {
+  prepare: prepareData,
   sync: syncData,
   get: getValue,
 }
 
 export default config;
 
-(async function init() {
-  const localData = await storage.get(KEY_DATA);
-  configData = localData || configData;
-})();
+let configData: any = {};
+let inited = false;
+let initTask: Promise<void>;
+
+export async function prepareData() {
+  if (inited) {
+    return;
+  }
+  if (initTask) {
+    return initTask;
+  }
+  const load = async () => {
+    const localData = await storage.get(KEY_DATA);
+    if (localData) {
+      configData = localData;
+      return;
+    }
+    await syncData(true);
+    configData = await storage.get(KEY_DATA) || defaultData;
+  };
+  initTask = load();
+  await initTask;
+  inited = true;
+};
 
 async function syncData(force?: boolean) {
   try {
@@ -41,9 +60,8 @@ async function syncData(force?: boolean) {
       return;
     }
 
-    configData = remoteData || configData;
-    storage.set(KEY_DATA, configData);
-    storage.set(KEY_SYNC_TIME, new Date().toISOString());
+    await storage.set(KEY_DATA, remoteData);
+    await storage.set(KEY_SYNC_TIME, new Date().toISOString());
   } catch (err) {
     console.error('[syncData]', err);
   }

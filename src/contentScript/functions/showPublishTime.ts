@@ -26,7 +26,7 @@ export function start() {
     document.body.addEventListener(EVENT_XHR_LOAD, (event: any) => {
       const { url, response } = event.detail as XHRLoadEventDetail;
       const path = new URL(url).pathname;
-  
+
       let newItems: Aweme[] = [];
       if (path === config.get<string>(['apis', 'feed', 'path'])) {
         newItems = response.aweme_list || [];

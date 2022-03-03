@@ -2,6 +2,7 @@ import storage from '../storage';
 import config from '../config';
 
 export interface Shortcut {
+  name: string;
   title: string;
   code: string;
 }
@@ -67,7 +68,13 @@ export async function getCustomShortcuts(): Promise<CustomShortcuts> {
 };
 
 export async function getDefaultShortcuts(): Promise<Shortcuts> {
-  return config.get<Shortcuts>(['shortcuts']) ?? {};
+  await config.prepare();
+  const list = config.get<Shortcut[]>(['shortcuts']) ?? [];
+  const shortcuts = list.reduce((m, shortcut) => ({
+    ...m,
+    [shortcut.name]: shortcut,
+  }), {});
+  return shortcuts;
 };
 
 export async function updateShortcut(name: string, shortcut: CustomShortcut) {
@@ -80,7 +87,9 @@ export async function updateShortcut(name: string, shortcut: CustomShortcut) {
       }
       delete shortcuts[key];
     }
+    shortcuts[name] = { code: shortcut.code };
+  } else {
+    delete shortcuts[name];
   }
-  shortcuts[name] = { code: shortcut.code };
   return storage.set(KEY_CUSTOM, shortcuts);
 };

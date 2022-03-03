@@ -3,8 +3,8 @@
     "feed:slides": ".swiper-slide",
     "feed:slide": ".swiper-slide-active",
     "feed:slide:video": "video",
-    "feed:slide:videoWrapper": ".videoWrap",
-    "feed:slide:showCommentBtn": ".xgplayer-video-interaction-wrap > div:nth-child(3) > div",
+    "feed:slide:videoWrapper": ".playerContainer",
+    "feed:slide:showCommentBtn": ".NRiH5zYV:nth-child(3) > div",
     "feed:slide:desc": ".video-info-detail > .title",
     "feed:slide:desc:hash": "span",
     "feed:slide:playBtn:playing": ".xgplayer-play[data-state=\"play\"]",
@@ -34,62 +34,76 @@
       "path": "/aweme/v1/web/follow/feed/"
     }
   },
-  "shortcuts": {
-    "previous": {
+  "shortcuts": [
+    {
+      "name": "previous",
       "title": "上一个",
       "code": "ArrowUp"
     },
-    "next": {
+    {
+      "name": "next",
       "title": "下一个",
       "code": "ArrowDown"
     },
-    "pause": {
+    {
+      "name": "pause",
       "title": "暂停",
       "code": "Space"
     },
-    "fastForward": {
+    {
+      "name": "fastForward",
       "title": "快进",
       "code": "ArrowRight"
     },
-    "fastRewind": {
+    {
+      "name": "fastRewind",
       "title": "快退",
       "code": "ArrowLeft"
     },
-    "increaseVolume": {
+    {
+      "name": "increaseVolume",
       "title": "增大音量",
       "code": "Equal"
     },
-    "decreaseVolume": {
+    {
+      "name": "decreaseVolume",
       "title": "减小音量",
       "code": "Minus"
     },
-    "comment": {
+    {
+      "name": "comment",
       "title": "评论",
       "code": "KeyX"
     },
-    "like": {
+    {
+      "name": "like",
       "title": "赞",
       "code": "KeyZ"
     },
-    "collect": {
+    {
+      "name": "collect",
       "title": "收藏",
       "code": "KeyC"
     },
-    "share": {
+    {
+      "name": "share",
       "title": "分享",
       "code": "KeyV"
     },
-    "dislike": {
+    {
+      "name": "dislike",
       "title": "不感兴趣",
       "code": "KeyB"
     },
-    "follow": {
+    {
+      "name": "follow",
       "title": "关注作者",
       "code": "KeyA"
     },
-    "openAuthorPage": {
+    {
+      "name": "openAuthorPage",
       "title": "进入作者主页",
       "code": "KeyF"
     }
-  }
+  ]
 }

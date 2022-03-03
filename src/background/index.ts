@@ -5,6 +5,7 @@ const ALARM_SYNC_CONFIG = 'config:sync';
 
 chrome.alarms.create(ALARM_SYNC_CONFIG, {
   periodInMinutes: 1,
+  delayInMinutes: 0,
 });
 
 chrome.alarms.onAlarm.addListener(({ name }) => {

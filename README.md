@@ -58,6 +58,10 @@
 
 ## 更新日志
 
+[`v2.0.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.0.1) - `2022-03-04`
+
+- 修正远程配置同步逻辑
+
 [`v2.0.0`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.0.0) - `2022-03-02`
 
 - 启用全新配置页
