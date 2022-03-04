@@ -6,11 +6,13 @@ import * as enhanceDescription from './functions/enhanceDescription';
 import * as showPublishTime from './functions/showPublishTime';
 import * as autoHideCursor from './functions/autoHideCursor';
 import * as remapShortcut from './functions/remapShortcut';
+import { querySelector } from './dom';
 
 (async () => {
   inject();
 
   await config.prepare();
+
   initThemeSync();
   
   if (isInPages('feeds')) {
@@ -58,9 +60,7 @@ function inject() {
 function initThemeSync() {
   document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
-      const isDark = Boolean(document.querySelector(
-        config.get<string>(['selectors', 'darkTheme'])
-      ));
+      const isDark = !!querySelector(document, ['selectors', 'darkTheme']);
       updateTheme(isDark ? Theme.Dark : Theme.Light);
     }, 3000);
   });

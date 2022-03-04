@@ -1,5 +1,9 @@
 import { useMemo } from 'react';
-import { Card, Switch, Typography, Select } from '@douyinfe/semi-ui';
+import { Card, Switch, Typography, Select, Button } from '@douyinfe/semi-ui';
+import {
+  IconDoubleChevronRight,
+  IconDeleteStroked,
+} from '@douyinfe/semi-icons';
 
 import useFunc, { KEY_INFOS } from '../../../hooks/useRemapShortcutFunc';
 
@@ -9,7 +13,7 @@ export default function RemapShortcut() {
   const options = useMemo(() => {
     return [
       {
-        label: '不覆盖',
+        label: '未选择',
         value: '',
       },
       ...Object.keys(KEY_INFOS).map((code) => ({
@@ -31,38 +35,57 @@ export default function RemapShortcut() {
       </Typography.Text>
       <Card style={{ marginTop: 20 }}>
         <div className="flex flex-col gap-y-3">
-          {func.shortcuts.map((shortcut) => (
-            <div
-              className="flex items-center justify-between"
-              key={shortcut.name}
-            >
-              <div>
-                <Typography.Text type="primary">
-                  {shortcut.title}
-                </Typography.Text>
-                <Typography.Text type="tertiary">
-                  （默认 {getCodelabel(shortcut.defaultCode)} 键）
-                </Typography.Text>
-              </div>
+          {[...func.pairs, { oldCode: '', newCode: '' }].map((pair, i) => (
+            <div key={i} className="flex items-center gap-x-3">
               <Select
+                insetLabel="旧按键"
                 style={{ minWidth: 150 }}
-                value={shortcut.code}
+                value={pair.oldCode}
                 optionList={options}
                 onChange={(code) => {
-                  func.updateShortcut(shortcut.name, {
-                    ...shortcut,
-                    code: code as string,
-                  });
+                  const p = {
+                    oldCode: code as string,
+                    newCode: pair.newCode,
+                  };
+                  if (i === func.pairs.length) {
+                    func.addPair(p);
+                  } else {
+                    func.updatePair(i, p);
+                  }
                 }}
               />
+              <IconDoubleChevronRight className="opacity-50" />
+              <Select
+                insetLabel="新按键"
+                style={{ minWidth: 150 }}
+                value={pair.newCode}
+                optionList={options}
+                onChange={(code) => {
+                  const p = {
+                    oldCode: pair.oldCode,
+                    newCode: code as string,
+                  };
+                  if (i === func.pairs.length) {
+                    func.addPair(p);
+                  } else {
+                    func.updatePair(i, p);
+                  }
+                }}
+              />
+              <div className="ml-auto">
+                <Button
+                  icon={<IconDeleteStroked />}
+                  type="danger"
+                  disabled={i === func.pairs.length}
+                  onClick={() => {
+                    func.detelePair(i);
+                  }}
+                />
+              </div>
             </div>
           ))}
         </div>
       </Card>
     </Card>
   );
-}
-
-function getCodelabel(code: string) {
-  return KEY_INFOS[code]?.label ?? code;
 }

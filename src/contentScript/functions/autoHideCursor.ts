@@ -1,5 +1,5 @@
 import { isEnabled } from '../../base/functions/autoHideCursor';
-import config from '../../base/config';
+import { querySelectorAll } from '../dom';
 
 const NO_CURSOR_CLASS = 'douyinHelper_noCursorRoot';
 
@@ -14,9 +14,7 @@ const autoHideCursor = debounce(async ({ clientX, clientY }: MouseEvent) => {
   if (!(await isEnabled())) {
     return;
   }
-  const videos = Array.from(document.querySelectorAll(
-    config.get<string>(['selectors', 'video'])
-  ));
+  const videos = Array.from(querySelectorAll(document, ['selectors', 'video']));
   for (const video of videos) {
     const { left, width, top, height } = video.getBoundingClientRect();
     if (

@@ -58,6 +58,10 @@
 
 ## 更新日志
 
+[`v2.0.2`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.0.2) - `2022-03-05`
+
+- 应对抖音 A/B test 的情况
+
 [`v2.0.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.0.1) - `2022-03-04`
 
 - 修正远程配置同步逻辑

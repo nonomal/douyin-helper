@@ -1,14 +1,8 @@
 import storage from '../storage';
-import config from '../config';
 
-export interface Shortcut {
-  name: string;
-  title: string;
-  code: string;
-}
-
-export interface CustomShortcut {
-  code: string;
+export interface Pair {
+  oldCode: string;
+  newCode: string;
 }
 
 interface KeyInfo {
@@ -16,9 +10,6 @@ interface KeyInfo {
   keyCode?: number;
   label: string;
 }
-
-export type Shortcuts = Record<string, Shortcut>;
-export type CustomShortcuts = Record<string, CustomShortcut>;
 
 export const KEY_INFOS: Record<string, KeyInfo> = {
   ...'1234567890'.split('').reduce((m, c) => ({
@@ -53,7 +44,7 @@ export const KEY_INFOS: Record<string, KeyInfo> = {
 };
 
 const KEY_ENABLED = 'func:remapShortcut:enabled';
-const KEY_CUSTOM = 'func:remapShortcut:custom';
+const KEY_PAIRS = 'func:remapShortcut:pairs';
 
 export async function isEnabled() {
   return (await storage.get(KEY_ENABLED)) ?? true;
@@ -63,33 +54,46 @@ export async function updateStatus(enabled: boolean) {
   return storage.set(KEY_ENABLED, enabled);
 };
 
-export async function getCustomShortcuts(): Promise<CustomShortcuts> {
-  return (await storage.get(KEY_CUSTOM)) ?? {};
+export async function getPairs(): Promise<Pair[]> {
+  return (await storage.get(KEY_PAIRS)) || [];
 };
 
-export async function getDefaultShortcuts(): Promise<Shortcuts> {
-  await config.prepare();
-  const list = config.get<Shortcut[]>(['shortcuts']) ?? [];
-  const shortcuts = list.reduce((m, shortcut) => ({
-    ...m,
-    [shortcut.name]: shortcut,
-  }), {});
-  return shortcuts;
+export async function addPair(pair: Pair) {
+  const pairs = await getPairs();
+  return storage.set(KEY_PAIRS, deConflic([...pairs, pair]));
 };
 
-export async function updateShortcut(name: string, shortcut: CustomShortcut) {
-  const shortcuts = await getCustomShortcuts();
-  if (shortcut.code) {
-    for (const key in shortcuts) {
-      const { code } = shortcuts[key];
-      if (key === name || code !== shortcut.code) {
-        continue;
-      }
-      delete shortcuts[key];
-    }
-    shortcuts[name] = { code: shortcut.code };
-  } else {
-    delete shortcuts[name];
+export async function updatePair(index: number, pair: Pair) {
+  const pairs = await getPairs();
+  if (!pairs[index]) {
+    return;
   }
-  return storage.set(KEY_CUSTOM, shortcuts);
+  pairs[index] = pair;
+  return storage.set(KEY_PAIRS, deConflic(pairs));
 };
+
+export async function detelePair(index: number) {
+  const pairs = await getPairs();
+  return storage.set(KEY_PAIRS, pairs.filter((_, i) => i !== index));
+};
+
+function deConflic(pairs: Pair[]) {
+  // 旧键 1:n 新键
+  const newCodes = new Set<string>();
+  const oldCodeNewCodes: Record<string, string> = {};
+  const newPairs: Pair[] = [];
+  for (const pair of pairs) {
+    const p = {...pair};
+    if (newCodes.has(p.newCode)) {
+      p.newCode = '';
+    } else {
+      newCodes.add(p.newCode);
+    }
+    if (oldCodeNewCodes[p.oldCode] === p.newCode) {
+      continue;
+    }
+    oldCodeNewCodes[p.oldCode] = p.newCode;
+    newPairs.push(p);
+  }
+  return newPairs;
+}

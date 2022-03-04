@@ -1,19 +1,15 @@
 import { isEnabled } from '../../base/functions/autoShowComment';
-import config from '../../base/config';
+import { querySelector } from '../dom';
 
 export async function execute() {
   if (!(await isEnabled())) {
     return;
   }
-  const slide = document.querySelector(
-    config.get<string>(['selectors', 'feed:slide'])
-  );
+  const slide = querySelector(document, ['selectors', 'feed:slide']);
   if (!slide) {
     return;
   }
-  const video = slide.querySelector(
-    config.get<string>(['selectors', 'feed:slide:videoWrapper'])
-  );
+  const video = querySelector(slide, ['selectors', 'feed:slide:videoWrapper']);
   if (!video) {
     return;
   }
@@ -22,7 +18,9 @@ export async function execute() {
   if (slideRect.width - videoRect.width > 200) {
     return;
   }
-  slide.querySelector<HTMLElement>(
-    config.get<string>(['selectors', 'feed:slide:showCommentBtn'])
-  )?.click();
+  const btn = querySelector(
+    slide,
+    ['selectors', 'feed:slide:showCommentBtn'],
+  ) as HTMLElement;
+  btn?.click();
 }

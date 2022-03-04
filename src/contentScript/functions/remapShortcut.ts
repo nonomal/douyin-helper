@@ -1,12 +1,12 @@
 import {
+  Pair,
   KEY_INFOS,
   isEnabled,
-  getDefaultShortcuts,
-  getCustomShortcuts,
+  getPairs,
 } from '../../base/functions/remapShortcut';
 
 let isEnabledNow = false;
-let codeMap: Record<string, string> = {};
+let pairs: Pair[] = [];
 
 export async function start() {
   document.addEventListener('DOMContentLoaded', () => {
@@ -24,13 +24,14 @@ export async function start() {
       ) {
         return;
       }
-      if (!codeMap[code]) {
+      const { oldCode } = pairs.find(pair => pair.newCode === code) || {};
+      if (!oldCode) {
         return;
       }
-      const info = KEY_INFOS[codeMap[code]];
+      const info = KEY_INFOS[oldCode];
       document.dispatchEvent(new KeyboardEvent('keydown', {
         key: info.key,
-        code: codeMap[code],
+        code: oldCode,
         keyCode: info.keyCode,
       }));
       event.stopPropagation();
@@ -40,19 +41,6 @@ export async function start() {
 }
 
 export async function execute() {
-  const res = await Promise.all([
-    isEnabled(),
-    getDefaultShortcuts(),
-    getCustomShortcuts(),
-  ])
-  isEnabledNow = res[0];
-  const newCodeMap: Record<string, string> = {};
-  for (const key in res[1]) {
-    const defaultCode = res[1][key].code;
-    const customCode = res[2][key]?.code;
-    if (defaultCode && customCode && defaultCode !== customCode) {
-      newCodeMap[customCode] = defaultCode;
-    }
-  }
-  codeMap = newCodeMap;
+  isEnabled().then(v => isEnabledNow = v);
+  getPairs().then(v => pairs = v);
 }

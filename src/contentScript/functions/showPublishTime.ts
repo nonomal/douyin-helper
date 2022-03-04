@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { isEnabled } from '../../base/functions/showPublishTime';
 import { EVENT_XHR_LOAD, XHRLoadEventDetail } from '../../base/request';
 import config from '../../base/config';
+import { querySelector, querySelectorAll } from '../dom';
 
 interface Aweme {
   video: {
@@ -56,13 +57,15 @@ export async function execute() {
   if (!(await isEnabled())) {
     return;
   }
-  const slides = Array.from(document.querySelectorAll(
-    config.get<string>(['selectors', 'feed:slides'])
+  const slides = Array.from(querySelectorAll(
+    document,
+    ['selectors', 'feed:slides'],
   ));
   for (const slide of slides) {
-    const video = slide.querySelector<HTMLVideoElement>(
-      config.get<string>(['selectors', 'feed:slide:video'])
-    );
+    const video = querySelector(
+      slide,
+      ['selectors', 'feed:slide:video'],
+    ) as HTMLVideoElement;
     if (!video) {
       continue;
     }
@@ -70,15 +73,14 @@ export async function execute() {
     if (!timestamp) {
       continue;
     }
-    const account = slide.querySelector(
-      config.get<string>(['selectors', 'feed:slide:account'])
-    );
+    const account = querySelector(slide, ['selectors', 'feed:slide:account']);
     if (!account) {
       continue;
     }
-    const badge = slide.querySelector<HTMLElement>(
-      config.get<string>(['selectors', 'feed:slide:accountBadge'])
-    );
+    const badge = querySelector(
+      slide, 
+      ['selectors', 'feed:slide:accountBadge'],
+    ) as HTMLElement;
     if (badge && !badge.childElementCount) {
       badge.style.display = 'none';
     }

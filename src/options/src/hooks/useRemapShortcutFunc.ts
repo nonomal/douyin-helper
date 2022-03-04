@@ -2,39 +2,20 @@ import { useState, useEffect } from 'react';
 
 import * as func from '../../../base/functions/remapShortcut';
 
-export interface Shortcut {
-  name: string;
-  title: string;
-  defaultCode: string;
-  code: string;
-}
-
+export type Pair = func.Pair;
 export const KEY_INFOS = func.KEY_INFOS;
 
 export default function useRemapShortcutFunc() {
   const [isEnabled, setIsEnabled] = useState(false);
-  const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
+  const [pairs, setPairs] = useState<Pair[]>([]);
 
-  const syncShortcuts = () => Promise.all([
-    func.getDefaultShortcuts(),
-    func.getCustomShortcuts(),
-  ]).then(res => {
-    const items = Object.keys(res[0]).reduce<Shortcut[]>((list, name) => {
-      const [origin, custom] = [res[0][name], res[1][name]];
-      list.push({
-        name,
-        title: origin.title,
-        defaultCode: origin.code,
-        code: custom?.code || '',
-      });
-      return list;
-    }, []);
-    setShortcuts(items);
-  });
+  const syncPairs = async () => {
+    setPairs(await func.getPairs());
+  };
 
   useEffect(() => {
     func.isEnabled().then(setIsEnabled);
-    syncShortcuts();
+    syncPairs();
   }, []);
 
   const updateStatus = async (enabled: boolean) => {
@@ -42,15 +23,27 @@ export default function useRemapShortcutFunc() {
     setIsEnabled(enabled);
   };
 
-  const updateShortcut = async (name: string, shortcut: Shortcut) => {
-    await func.updateShortcut(name, shortcut);
-    syncShortcuts();
+  const addPair = async (pair: Pair) => {
+    await func.addPair(pair);
+    syncPairs();
+  };
+
+  const updatePair = async (index: number, pair: Pair) => {
+    await func.updatePair(index, pair);
+    syncPairs();
+  };
+
+  const detelePair = async (index: number) => {
+    await func.detelePair(index);
+    syncPairs();
   };
 
   return {
     isEnabled,
-    shortcuts,
+    pairs,
     updateStatus,
-    updateShortcut,
+    addPair,
+    updatePair,
+    detelePair,
   };
 }
