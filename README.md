@@ -10,11 +10,15 @@
 
 抖音 web 端（[douyin.com](https://douyin.com)）浏览器插件，集成多种实用小功能。这是第三方开源项目，功能会逐步增加，即使暂未满足你的需求，也欢迎安装使用，以随版本更新，第一时间获得新功能以及更好的观看体验。
 
+|      o(\*￣ 3 ￣)o       |         (｡･ω･｡)          |       o(￣ ε ￣\*)       |
+| :----------------------: | :----------------------: | :----------------------: |
+| ![](assets/images/1.png) | ![](assets/images/2.png) | ![](assets/images/3.png) |
+
 ## 安装
 
 通过 [Chrome Web Store](https://chrome.google.com/webstore/detail/khgcifnapfcaleokihendkolpcfgkepk) 安装（推荐），或在 [Releases 页面](https://github.com/douyin-helper/douyin-helper/releases) 中下载最新版本的 `.crx` 文件至本地再手动安装。
 
-## 目前支持的功能
+## 功能
 
 ### 保持评论区展开
 
