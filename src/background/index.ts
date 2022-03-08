@@ -1,5 +1,6 @@
 import { updateUserLastActiveTime } from '../base/status';
 import config from '../base/config';
+import * as searchSelection from '../base/functions/searchSelection';
 
 const ALARM_SYNC_CONFIG = 'config:sync';
 
@@ -41,3 +42,7 @@ chrome.runtime.onInstalled.addListener(({ previousVersion, reason }) => {
     chrome.tabs.create({ url });
   }
 });
+
+searchSelection.updateContextMenu();
+chrome.contextMenus.onClicked.addListener(searchSelection.onSearchMenuItemClicked);
+chrome.tabs.onUpdated.addListener(searchSelection.onTabUpdated);

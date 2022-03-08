@@ -51,7 +51,7 @@ export async function isEnabled() {
 };
 
 export async function updateStatus(enabled: boolean) {
-  return storage.set(KEY_ENABLED, enabled);
+  await storage.set(KEY_ENABLED, enabled);
 };
 
 export async function getPairs(): Promise<Pair[]> {
@@ -60,7 +60,7 @@ export async function getPairs(): Promise<Pair[]> {
 
 export async function addPair(pair: Pair) {
   const pairs = await getPairs();
-  return storage.set(KEY_PAIRS, deConflic([...pairs, pair]));
+  await storage.set(KEY_PAIRS, deConflic([...pairs, pair]));
 };
 
 export async function updatePair(index: number, pair: Pair) {
@@ -69,12 +69,12 @@ export async function updatePair(index: number, pair: Pair) {
     return;
   }
   pairs[index] = pair;
-  return storage.set(KEY_PAIRS, deConflic(pairs));
+  await storage.set(KEY_PAIRS, deConflic(pairs));
 };
 
 export async function detelePair(index: number) {
   const pairs = await getPairs();
-  return storage.set(KEY_PAIRS, pairs.filter((_, i) => i !== index));
+  await storage.set(KEY_PAIRS, pairs.filter((_, i) => i !== index));
 };
 
 function deConflic(pairs: Pair[]) {

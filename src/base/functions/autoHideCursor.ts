@@ -7,5 +7,5 @@ export async function isEnabled() {
 };
 
 export async function updateStatus(enabled: boolean) {
-  return storage.set(KEY_ENABLED, enabled);
+  await storage.set(KEY_ENABLED, enabled);
 };

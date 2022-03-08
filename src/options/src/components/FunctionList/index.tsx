@@ -3,6 +3,7 @@ import EnhanceDescription from './cards/EnhanceDescription';
 import ShowPublishTime from './cards/ShowPublishTime';
 import AutoHideCursor from './cards/AutoHideCursor';
 import RemapShortcut from './cards/RemapShortcut';
+import SearchSelection from './cards/SearchSelection';
 import More from './cards/More';
 
 export interface Props {
@@ -18,6 +19,7 @@ export default function FunctionList({ className }: Props) {
         <RemapShortcut />
         <ShowPublishTime />
         <AutoHideCursor />
+        <SearchSelection />
         <More />
       </div>
     </div>

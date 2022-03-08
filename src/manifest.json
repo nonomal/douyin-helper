@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "2.0.2",
+  "version": "2.1.0",
   "name": "抖音小助手",
   "description": "抖音网页端增强，集成多种实用小功能",
   "homepage_url": "https://douyinhelper.com",
@@ -20,7 +20,8 @@
   "permissions": [
     "storage",
     "tabs",
-    "alarms"
+    "alarms",
+    "contextMenus"
   ],
   "content_scripts": [
     {
