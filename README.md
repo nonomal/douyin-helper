@@ -58,6 +58,10 @@
 
 ## 更新日志
 
+[`v2.2.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.2.1) - `2022-03-27`
+
+- 修正下载动作偶尔没有触发的问题
+
 [`v2.2.0`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.2.0) - `2022-03-27`
 
 - 支持下载视频

@@ -26,12 +26,16 @@ export default function Popup() {
     }
     // https://bugs.chromium.org/p/chromium/issues/detail?id=579563
     // https://bugs.chromium.org/p/chromium/issues/detail?id=1288041
-    chrome.downloads.download({
-      url: video.url,
-      filename: video.filename,
-      saveAs: true,
-    });
-    setTimeout(() => window.close());
+    chrome.downloads.download(
+      {
+        url: video.url,
+        filename: video.filename,
+        saveAs: true,
+      },
+      () => {
+        window.close();
+      }
+    );
   }, [video]);
 
   return (
