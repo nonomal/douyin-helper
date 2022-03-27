@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "2.1.0",
+  "version": "2.2.0",
   "name": "抖音小助手",
   "description": "抖音网页端增强，集成多种实用小功能",
   "homepage_url": "https://douyinhelper.com",
@@ -8,9 +8,10 @@
     "service_worker": "background/index.js"
   },
   "action": {
-    "default_title": "抖音小助手"
+    "default_title": "抖音小助手",
+    "default_popup": "main/index.html#/popup"
   },
-  "options_page": "options/index.html",
+  "options_page": "main/index.html#/options",
   "icons": {
     "128": "assets/icons/icon-128.png",
     "48": "assets/icons/icon-48.png",
@@ -21,7 +22,8 @@
     "storage",
     "tabs",
     "alarms",
-    "contextMenus"
+    "contextMenus",
+    "downloads"
   ],
   "content_scripts": [
     {
@@ -39,7 +41,8 @@
     {
       "resources": [
         "injection/*",
-        "assets/*"
+        "assets/*",
+        "main/*"
       ],
       "matches": [
         "https://douyin.com/*",

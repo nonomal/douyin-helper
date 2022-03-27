@@ -1,18 +1,18 @@
 import { Card, Switch, Typography } from '@douyinfe/semi-ui';
 
-import useFunc from '../../../hooks/useSearchSelectionFunc';
+import useFunc from '../../../../../hooks/useShowPublishTimeFunc';
 
-export default function SearchSelection() {
+export default function ShowPublishTime() {
   const func = useFunc();
   return (
     <Card
-      title="右键搜索"
+      title="显示视频发布时间"
       headerExtraContent={
         <Switch checked={func.isEnabled} onChange={func.updateStatus} />
       }
     >
       <Typography.Text type="secondary">
-        在网页里选中文本后，右键菜单增加「使用抖音搜索“所选文本”」。
+        在信息流视频的作者名称后加上视频发布时间。
       </Typography.Text>
     </Card>
   );

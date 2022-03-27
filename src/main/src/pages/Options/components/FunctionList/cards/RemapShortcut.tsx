@@ -5,7 +5,7 @@ import {
   IconDeleteStroked,
 } from '@douyinfe/semi-icons';
 
-import useFunc, { KEY_INFOS } from '../../../hooks/useRemapShortcutFunc';
+import useFunc, { KEY_INFOS } from '../../../../../hooks/useRemapShortcutFunc';
 
 export default function RemapShortcut() {
   const func = useFunc();
@@ -31,7 +31,18 @@ export default function RemapShortcut() {
       }
     >
       <Typography.Text type="secondary">
-        覆盖官方原有的快捷键配置。
+        覆盖官方原有的
+        <Typography.Text
+          type="secondary"
+          link={{
+            href: 'https://github.com/douyin-helper/douyin-helper/wiki#%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE',
+            target: '_blank',
+            rel: 'noopener noreferrer',
+          }}
+        >
+          快捷键配置
+        </Typography.Text>
+        。
       </Typography.Text>
       <Card style={{ marginTop: 20 }}>
         <div className="flex flex-col gap-y-3">

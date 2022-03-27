@@ -37,9 +37,12 @@ export async function onSearchMenuItemClicked(info: chrome.contextMenus.OnClickD
   const query = (info.selectionText || '*').trim().slice(0, 64);
   const path = encodeURIComponent(query);
   const url = new URL(`${BASE_URL}${path}`);
+  const keys = await getRememberableOptionKeys();
   const options = await getOptions();
   for (const key in options) {
-    url.searchParams.set(key, options[key]);
+    if (keys.includes(key)) {
+      url.searchParams.set(key, options[key]);
+    }
   }
   chrome.tabs.create({ url: url.toString() });
 }
@@ -49,8 +52,7 @@ export async function onTabUpdated(id: number, info: chrome.tabs.TabChangeInfo, 
     return;
   }
   const url = new URL(tab.url);
-  await config.prepare();
-  const keys = await config.get<string[]>(['search', 'rememberableOptionKeys']) || [];
+  const keys = await getRememberableOptionKeys();
   const options: Record<string, string> = {};
   for (const key of keys) {
     const value = url.searchParams.get(key);
@@ -62,6 +64,11 @@ export async function onTabUpdated(id: number, info: chrome.tabs.TabChangeInfo, 
     return;
   }
   await updateOptions(options);
+}
+
+async function getRememberableOptionKeys() {
+  await config.prepare();
+  return config.get<string[]>(['search', 'rememberableOptionKeys']) || [];
 }
 
 async function getOptions() {

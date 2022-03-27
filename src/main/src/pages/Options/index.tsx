@@ -1,16 +1,10 @@
-import { useEffect } from 'react';
 import { Layout } from '@douyinfe/semi-ui';
-
-import { getTheme } from '../../base/theme';
 
 import Header from './components/Header';
 import WelcomeBanner from './components/WelcomeBanner';
 import FunctionList from './components/FunctionList';
 
-export default function App() {
-  useEffect(() => {
-    initTheme();
-  }, []);
+export default function Options() {
   return (
     <Layout className="flex flex-col h-screen">
       <Layout.Header className="flex-none">
@@ -22,8 +16,4 @@ export default function App() {
       </Layout.Content>
     </Layout>
   );
-}
-
-async function initTheme() {
-  document.body.setAttribute('theme-mode', await getTheme());
 }

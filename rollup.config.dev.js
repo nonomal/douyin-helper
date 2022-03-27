@@ -91,10 +91,10 @@ function link() {
         fs.mkdirSync(dstDir);
       }
 
-      const optionsSrcDir = path.resolve(srcDir, 'options/build');
-      const optionsDstDir = path.resolve(dstDir, 'options');
-      if (!fs.existsSync(optionsDstDir)) {
-        fs.symlinkSync(optionsSrcDir, optionsDstDir, 'dir');
+      const mainSrcDir = path.resolve(srcDir, 'main/build');
+      const mainDstDir = path.resolve(dstDir, 'main');
+      if (!fs.existsSync(mainDstDir)) {
+        fs.symlinkSync(mainSrcDir, mainDstDir, 'dir');
       }
 
       const manifestSrc = path.resolve(srcDir, 'manifest.json');

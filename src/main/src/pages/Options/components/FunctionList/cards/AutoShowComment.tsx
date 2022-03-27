@@ -1,6 +1,6 @@
 import { Card, Switch, Typography } from '@douyinfe/semi-ui';
 
-import useFunc from '../../../hooks/useAutoShowCommentFunc';
+import useFunc from '../../../../../hooks/useAutoShowCommentFunc';
 
 export default function AutoShowComment() {
   const func = useFunc();

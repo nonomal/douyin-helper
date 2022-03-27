@@ -19,21 +19,6 @@ chrome.tabs.onCreated.addListener(() => {
   updateUserLastActiveTime(new Date());
 });
 
-chrome.action.onClicked.addListener(async () => {
-  const url = chrome.runtime.getURL('options/index.html');
-  const tabs = await chrome.tabs.query({
-    windowId: chrome.windows.WINDOW_ID_CURRENT,
-    url: url + '*',
-  });
-  if (tabs.length) {
-    chrome.tabs.update(tabs[0].id, {
-      active: true,
-    });
-  } else {
-    chrome.tabs.create({ url });
-  }
-});
-
 chrome.runtime.onInstalled.addListener(({ previousVersion, reason }) => {
   const prev = previousVersion;
   const curr = chrome.runtime.getManifest().version;
@@ -46,3 +31,10 @@ chrome.runtime.onInstalled.addListener(({ previousVersion, reason }) => {
 searchSelection.updateContextMenu();
 chrome.contextMenus.onClicked.addListener(searchSelection.onSearchMenuItemClicked);
 chrome.tabs.onUpdated.addListener(searchSelection.onTabUpdated);
+
+chrome.runtime.onMessage.addListener((msg, sender, send) => {
+  if (msg?.key === 'getTabId') {
+    send({ tabId: sender.tab.id });
+    return true;
+  }
+});

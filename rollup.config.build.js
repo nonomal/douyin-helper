@@ -47,8 +47,8 @@ export default [
             dest: 'build/assets',
           },
           {
-            src: 'src/options/build/**/*',
-            dest: 'build/options',
+            src: 'src/main/build/**/*',
+            dest: 'build/main',
           },
         ],
       }),
