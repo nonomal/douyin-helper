@@ -23,7 +23,7 @@ chrome.runtime.onInstalled.addListener(({ previousVersion, reason }) => {
   const prev = previousVersion;
   const curr = chrome.runtime.getManifest().version;
   if (!prev || +curr.split('.')[0] > +prev.split('.')[0]) {
-    const url = chrome.runtime.getURL(`options/index.html?reason=${reason}`);
+    const url = chrome.runtime.getURL(`/main/index.html#/options?reason=${reason}`);
     chrome.tabs.create({ url });
   }
 });

@@ -58,6 +58,10 @@
 
 ## 更新日志
 
+[`v2.2.2`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.2.2) - `2022-03-31`
+
+- 修正更新后自动打开的页面 url
+
 [`v2.2.1`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.2.1) - `2022-03-27`
 
 - 修正下载动作偶尔没有触发的问题

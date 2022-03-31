@@ -4,7 +4,7 @@ import { IconCrown } from '@douyinfe/semi-icons';
 
 export default function WelcomeBanner() {
   const isUpdateMode = useMemo(() => {
-    return window.location.search.includes('reason=update');
+    return window.location.hash.includes('reason=update');
   }, []);
   const version = useMemo(() => {
     return chrome.runtime.getManifest().version;
