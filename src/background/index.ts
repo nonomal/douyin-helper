@@ -20,6 +20,9 @@ chrome.tabs.onCreated.addListener(() => {
 });
 
 chrome.runtime.onInstalled.addListener(({ previousVersion, reason }) => {
+  if (!['update', 'install'].includes(reason)) {
+    return;
+  }
   const prev = previousVersion;
   const curr = chrome.runtime.getManifest().version;
   if (!prev || +curr.split('.')[0] > +prev.split('.')[0]) {

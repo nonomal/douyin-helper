@@ -63,7 +63,7 @@ export default class DownloadVideoFunc extends Func {
     const matched = window.location.pathname.match(/\/video\/(\d+)/);
     if (matched) {
       return {
-        filename: matched[1],
+        filename: matched[1] + '.mp4',
         url: currUrl,
       };
     }
@@ -72,14 +72,14 @@ export default class DownloadVideoFunc extends Func {
       for (const url of urls) {
         if (this.removeProtocol(currUrl) === this.removeProtocol(url)) {
           return {
-            filename: aweme.aweme_id,
+            filename: aweme.aweme_id + '.mp4',
             url: currUrl,
           };
         }
       }
     }
     return {
-      filename: 'video',
+      filename: `douyin_${Date.now()}.mp4`,
       url: currUrl,
     };
   }

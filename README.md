@@ -58,6 +58,10 @@
 
 ## 更新日志
 
+[`v2.2.3`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.2.3) - `2022-05-11`
+
+- 优化下载文件名（新版 Chrome）
+
 [`v2.2.2`](https://github.com/douyin-helper/douyin-helper/releases/tag/v2.2.2) - `2022-03-31`
 
 - 修正更新后自动打开的页面 url
