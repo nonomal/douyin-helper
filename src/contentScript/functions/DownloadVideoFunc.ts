@@ -26,6 +26,7 @@ export default class DownloadVideoFunc extends Func {
         if (response?.data?.[0]?.aweme) {
           this.awemes.push(...response.data.map(item => item.aweme));
         }
+        this.awemes = this.awemes.slice(-1000);
       });
     });
     chrome.runtime.onConnect.addListener(async port => {
@@ -68,9 +69,15 @@ export default class DownloadVideoFunc extends Func {
       };
     }
     for (const aweme of this.awemes) {
-      const urls = aweme.video?.play_addr?.url_list || [];
+      const urls = [
+        ...(aweme.video?.bit_rate?.reduce((res, item) => [
+          ...res,
+          ...(item.play_addr?.url_list || []),
+        ], []) || []),
+        ...(aweme.video?.play_addr?.url_list || []),
+      ];
       for (const url of urls) {
-        if (this.removeProtocol(currUrl) === this.removeProtocol(url)) {
+        if (this.removeProtocol(currUrl).startsWith(this.removeProtocol(url))) {
           return {
             filename: aweme.aweme_id + '.mp4',
             url: currUrl,

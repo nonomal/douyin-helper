@@ -33,7 +33,9 @@ export default function Popup() {
         saveAs: true,
       },
       () => {
-        window.close();
+        setTimeout(() => {
+          window.close();
+        }, 2000);
       }
     );
   }, [video]);
