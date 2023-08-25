@@ -8,7 +8,7 @@ export enum Theme {
 const KEY_THEME = 'theme';
 
 export async function getTheme(): Promise<Theme> {
-  return await storage.get(KEY_THEME) || Theme.Light;
+  return await storage.get(KEY_THEME) || Theme.Dark;
 }
 
 export async function updateTheme(theme: Theme) {
@@ -16,5 +16,5 @@ export async function updateTheme(theme: Theme) {
 }
 
 export async function isDarkTheme(): Promise<boolean> {
-  return await getTheme() === Theme.Dark;
+  return await getTheme() !== Theme.Light;
 }

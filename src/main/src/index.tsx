@@ -1,10 +1,15 @@
-import ReactDOM from 'react-dom';
-
-import config from '../../base/config';
-import './index.css';
+import ReactDOM from 'react-dom/client';
 import App from './App';
+import { getTheme } from '../../base/theme';
+import './index.css';
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
+  <App />
+);
 
 (async () => {
-  await config.prepare();
-  ReactDOM.render(<App />, document.getElementById('root'));
+  document.body.setAttribute('theme-mode', await getTheme());
 })();

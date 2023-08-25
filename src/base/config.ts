@@ -1,69 +1,36 @@
-import { satisfies } from 'semver';
-
-import manifest from '../manifest.json';
-import defaultData from '../runtime/config.json';
+import defaultData from '../runtime/config.v2.json';
 import storage from './storage';
-import { getUserLastActiveTime } from './status';
+import { getUserLastActiveTime } from './state';
 
-
-const REMOTE_DATA_URL = 'https://douyinhelper.com/runtime/config.json';
+const REMOTE_DATA_URL = 'https://douyinhelper.com/runtime/config.v2.json';
 const MIN_SYNC_INTERVAL = 1000 * 3600;
 
-const KEY_DATA = 'config:data';
+const KEY_DATA = 'config:data:v2';
 const KEY_SYNC_TIME = 'config:syncTime';
 
-const config = {
-  prepare: prepareData,
-  sync: syncData,
-  get: getValue,
-}
+let configData: any = defaultData;
+let prepared = false;
 
-export default config;
-
-let configData: any = {};
-let inited = false;
-let initTask: Promise<void>;
-
-export async function prepareData() {
-  if (inited) {
-    return;
-  }
-  if (initTask) {
-    return initTask;
-  }
-  const load = async () => {
-    const localData = await storage.get(KEY_DATA);
-    if (localData) {
-      configData = localData;
-      return;
-    }
-    await syncData(true);
-    configData = await storage.get(KEY_DATA) || defaultData;
-  };
-  initTask = load();
-  await initTask;
-  inited = true;
-};
-
-async function syncData(force?: boolean) {
+export async function sync(force?: boolean) {
   try {
     if (!force && !await canSync()) {
       return;
     }
 
-    const res = await fetch(REMOTE_DATA_URL, { cache: 'no-cache' });
+    const res = await fetch(REMOTE_DATA_URL, { cache: 'default' });
     const remoteData = await res.json();
 
     // 开发环境下以本地配置数据优先，只空跑同步逻辑
     if (process.env.DEV) {
-      console.log('[syncData] got', new Date(), remoteData);
+      console.log('[config][sync] got', new Date(), remoteData);
       return;
     }
 
+    configData = remoteData;
     await storage.set(KEY_DATA, remoteData);
     await storage.set(KEY_SYNC_TIME, new Date().toISOString());
   } catch (err) {
-    console.error('[syncData]', err);
+    console.error('[config][sync]', err);
   }
 }
 
@@ -83,35 +50,28 @@ async function canSync() {
   return true;
 }
 
-function getValue<T=any>(paths: string[]): T | undefined {
+export async function get<T=any>(paths: string[]): Promise<T | undefined> {
+  if (!prepared) {
+    await load();
+    prepared = true;
+  }
   let curr = configData;
   for (const key of paths) {
     if (!curr) {
       return undefined;
     }
-    const matched = getMatchKey(key, Object.keys(curr));
-    if (!matched) {
-      return undefined;
-    }
-    curr = curr[matched];
+    curr = curr[key];
   }
   return curr;
 }
 
-function getMatchKey(key: string, candidates: string[]): string | undefined {
-  candidates.sort().reverse();
-  for (const candidate of candidates) {
-    const [prefix, range] = candidate.split('|');
-    if (prefix !== key) {
-      continue;
+export async function load() {
+  try {
+    const data = await storage.get(KEY_DATA);
+    if (data) {
+      configData = data;
     }
-    if (range) {
-      if (satisfies(manifest.version, range)) {
-        return candidate;
-      }
-      continue;
-    }
-    return candidate;
+  } catch (err) {
+    console.error('[config][load]', err);
   }
-  return undefined;
 }

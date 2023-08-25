@@ -1,0 +1,124 @@
+{
+  "aweme": {
+    "locations": {
+      "request": {
+        "**/aweme/**": [
+          "aweme_list",
+          "data..aweme",
+          "cards..aweme"
+        ]
+      },
+      "html": {
+        ".STREAM_RENDER_DATA": [
+          "value.recommend_aweme_list"
+        ],
+        "#RENDER_DATA": [
+          "$..aweme.detail"
+        ]
+      }
+    },
+    "fields": [
+      {
+        "id": "aweme_id",
+        "videos": "video.bit_rate",
+        "videosOrderBy": "bit_rate",
+        "videosOrder": "desc",
+        "videoUrls": "$..play_addr.url_list",
+        "bestVideoUrl": "play_addr.url_list[0]",
+        "description": "desc",
+        "authorId": "author.uid",
+        "authorNickname": "author.nickname"
+      },
+      {
+        "id": "aweme_id",
+        "videos": "video.bit_rate_list",
+        "videosOrderBy": "bit_rate",
+        "videosOrder": "desc",
+        "videoUrls": "$..play_addr..src",
+        "bestVideoUrl": "play_addr..src[0]",
+        "description": "desc",
+        "authorId": "author_info.uid",
+        "authorNickname": "author_info.nickname"
+      }
+    ]
+  },
+  "theme": {
+    "darkSelectors": [
+      "html[dark=\"true\"]"
+    ]
+  },
+  "search": {
+    "urlTemplate": "https://www.douyin.com/search/{{query}}",
+    "rememberFields": [
+      "type"
+    ]
+  },
+  "download": {
+    "disabledInUrls": [
+      "*/lvdetail/*"
+    ],
+    "selectors": {
+      "list": [
+        {
+          "item": [
+            "[data-e2e=\"scroll-list\"] a[href*=\"/video/\"]"
+          ],
+          "awemeId": {
+            "node": [
+              "$"
+            ],
+            "attr": [
+              "href"
+            ],
+            "regex": [
+              "\\/video\\/(\\d+)"
+            ]
+          }
+        }
+      ],
+      "player": [
+        {
+          "wrapper": [
+            ".xgplayer"
+          ],
+          "anchor": {
+            "node": [
+              ".xgplayer-controls .xg-right-grid"
+            ],
+            "before": true
+          },
+          "awemeId": {
+            "node": [
+              "[data-e2e-vid]"
+            ],
+            "attr": [
+              "data-e2e-vid"
+            ],
+            "regex": [
+              "(\\d+)"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "comment": {
+    "selectors": [
+      {
+        "wrapper": [
+          "[data-e2e=\"feed-active-video\"]"
+        ],
+        "video": [
+          "video"
+        ],
+        "toggleBtn": [
+          "[data-e2e=\"feed-comment-icon\"]",
+          ".NRiH5zYV:nth-child(3) > div"
+        ]
+      }
+    ]
+  },
+  "injection": {
+    "style": "__DH_STYLE__"
+  }
+}

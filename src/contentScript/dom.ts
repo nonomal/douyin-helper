@@ -1,11 +1,21 @@
-import config from '../base/config';
+import { get } from '../base/config';
 
-export function querySelector(element: Element | Document, configPaths: string[]) {
-  const data = config.get<string | string[]>(configPaths) || [];
-  const selectors = typeof data === 'string' ? [data] : data;
+export async function querySelector(element: Element | Document, configPaths: string[]) {
+  const data = await get<string | string[]>(configPaths) || [];
+  return querySelectorFirst(element, data);
+}
+
+export function querySelectorFirst(element: Element | Document | null, selectors: string[] | string) {
+  if (!element) {
+    return null;
+  }
+  selectors = Array.isArray(selectors) ? selectors : [selectors];
   for (const selector of selectors) {
     if (!selector) {
       continue;
+    }
+    if (selector === '$') {
+      return element;
     }
     const res = element.querySelector(selector);
     if (res) {
@@ -15,12 +25,22 @@ export function querySelector(element: Element | Document, configPaths: string[]
   return null;
 }
 
-export function querySelectorAll(element: Element | Document, configPaths: string[]) {
-  const data = config.get<string | string[]>(configPaths) || [];
-  const selectors = typeof data === 'string' ? [data] : data;
+export async function querySelectorAll(element: Element | Document, configPaths: string[]) {
+  const data = await get<string | string[]>(configPaths) || [];
+  return querySelectorAllFirst(element, data);
+}
+
+export function querySelectorAllFirst(element: Element | Document | null, selectors: string[] | string) {
+  if (!element) {
+    return [];
+  }
+  selectors = Array.isArray(selectors) ? selectors : [selectors];
   for (const selector of selectors) {
     if (!selector) {
       continue;
+    }
+    if (selector === '$') {
+      return [element];
     }
     const res = element.querySelectorAll(selector);
     if (res.length) {
@@ -28,4 +48,24 @@ export function querySelectorAll(element: Element | Document, configPaths: strin
     }
   }
   return [];
+}
+
+export function closestFirst(element: Element | null, selectors: string[] | string) {
+  if (!element) {
+    return null;
+  }
+  selectors = Array.isArray(selectors) ? selectors : [selectors];
+  for (const selector of selectors) {
+    if (!selector) {
+      continue;
+    }
+    if (selector === '$') {
+      return element;
+    }
+    const res = element.closest(selector);
+    if (res) {
+      return res;
+    }
+  }
+  return null;
 }

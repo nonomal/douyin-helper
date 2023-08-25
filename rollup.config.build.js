@@ -1,9 +1,11 @@
+import fs from 'fs';
 import ts from 'rollup-plugin-ts';
 import copy from 'rollup-plugin-copy';
 import json from '@rollup/plugin-json';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import terser from '@rollup/plugin-terser';
 
 export default [
   {
@@ -57,22 +59,37 @@ export default [
 ];
 
 function getTsPlugins() {
+  const style = fs.readFileSync('src/runtime/style.css', 'utf8');
   return [
     commonjs(),
-    replace({
-      preventAssignment: true,
-      'process.env.DEV': 'false',
+    nodeResolve({
+      browser: true,
+    }),
+    json({
+      namedExports: false,
     }),
     ts({
       tsconfig: {
         resolveJsonModule: true,
+        moduleResolution: 'node',
         allowSyntheticDefaultImports: true,
       },
     }),
-    nodeResolve(),
-    json({
-      namedExports: false,
+    replace({
+      preventAssignment: true,
+      delimiters: ['', ''],
+      'process.env.DEV': 'false',
+      '\'__STYLE__\'': JSON.stringify(style),
+      '"__STYLE__"': JSON.stringify(style),
     }),
+    terser(),
   ];
 }
 
+function generateConfigFile() {
+  const json = fs.readFileSync('src/runtime/config.v2.json', 'utf8');
+  const style = fs.readFileSync('src/runtime/style.css', 'utf8');
+  const content = json.replace(/"__STYLE__"/g, JSON.stringify(style));
+  fs.writeFileSync('build/runtime/config.v2.json', content, 'utf8');
+}
+generateConfigFile();
